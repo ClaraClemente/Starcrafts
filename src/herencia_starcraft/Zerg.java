@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -64,6 +65,20 @@ public class Zerg extends Escuadron {
     public int aumentaAtaqueOver(){
         
       return (int) (getNivelataque() * 1.40);
+        
+    }
+
+    @Override
+    public double calcularAtaque() {
+
+        double nEsbirros = getEsbirros();
+        double nivelAtaque = getNivelataque();
+        return ((nEsbirros)*1.15) + nivelAtaque;
+        
+    }
+
+    @Override
+    public double calcularDefensa() {
         
     }
     

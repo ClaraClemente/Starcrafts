@@ -31,4 +31,14 @@ public class Protoss extends Escuadron {
         return (int) (getNiveldefensa() * 1.50);
 
     }
+
+    @Override
+    public double calcularAtaque() {
+        
+    }
+
+    @Override
+    public double calcularDefensa() {
+
+    }
 }

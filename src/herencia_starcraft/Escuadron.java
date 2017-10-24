@@ -1,6 +1,6 @@
 package herencia_starcraft;
 
-public class Escuadron {
+public abstract class Escuadron {
 
     private String nombre;
     private int nvictorias;
@@ -48,5 +48,9 @@ public class Escuadron {
     public void setNiveldefensa(int niveldefensa) {
         this.niveldefensa = niveldefensa;
     }
+
+    public abstract double calcularAtaque();
+
+    public abstract double calcularDefensa();
 
 }

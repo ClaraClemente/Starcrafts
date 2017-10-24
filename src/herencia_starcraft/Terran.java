@@ -49,6 +49,16 @@ public class Terran extends Escuadron {
       return (int) (getNivelataque() * 1.50);
         
     }
+
+    @Override
+    public double calcularAtaque() {
+
+//hgmg    }
+
+    @Override
+    public double calcularDefensa() {
+
+    }
     
     
 }

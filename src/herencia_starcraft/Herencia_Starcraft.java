@@ -143,16 +143,20 @@ public class Herencia_Starcraft {
 
         String nombreEscuadron1 = array[1];
         String nombreEscuadron2 = array[2];
-
-        if (existeNombre(nombreEscuadron1) && existeNombre(nombreEscuadron2)) {
+        Escuadron e1 = cogerEscuadron(nombreEscuadron1);
+        
+        if (e1 != null && e2 != null) {
 
             for (int asaltos = 5; asaltos != 0; asaltos--) {
-                
+
                 int aleatorio = (int) (Math.random() * 9 + 0);
                 
+                //1r torn
+               
                 
                 
                 
+                //2n torn
 
             }
 
@@ -161,7 +165,29 @@ public class Herencia_Starcraft {
     }
 
     private static void mejorarEscuadron(String[] array) {
-        System.out.println("hola xavi");
+
+        String nombreEscuadron = array[1];
+        String PropiedadAMejorar = array[2];
+        String NuevoDato = array[3];
+
+        if (array.length != 4) {
+            System.out.println("ERROR 001: Nº de argumentos inválido");
+
+        } else {
+            if (PropiedadAMejorar || NuevoDato < 1) {
+                System.out.println(" ERROR 003: Dato incorrecto ");
+            }else{
+                !existeNombre(nombreEscuadron) 
+            }
+
+            if (existeNombre(nombreEscuadron)) {
+                System.out.println(" ERROR 007: Ya existe un escuadrón con ese nombre");
+
+            } else {
+
+            }
+        }
+
     }
 
     private static void mostrarClasificacion(String[] array) {
@@ -176,6 +202,16 @@ public class Herencia_Starcraft {
             }
         }
         return false;
+    }
+    
+     public static Escuadron cogerEscuadron(String nombre) {
+        // recorremos el ArrayList buscando si existe un disco con el mismo título
+        for (Escuadron e : escuadra) {
+            if (e.getNombre().equalsIgnoreCase(nombre)) {
+                return e;
+            }
+        }
+        return null;
     }
 
 }
