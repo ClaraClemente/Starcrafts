@@ -1,14 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package herencia_starcraft;
 
-/**
- *
- * @author DAM
- */
+
 public class Terran extends Escuadron {
 
     
@@ -20,6 +13,8 @@ public class Terran extends Escuadron {
         this.arma = arma;
     }
 
+    
+    
     public Terran(int nedificio, int arma, String nombre, int nvictorias, int nivelataque, int niveldefensa) {
         super(nombre, nvictorias, nivelataque, niveldefensa);
         this.nedificio = nedificio;

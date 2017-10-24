@@ -8,6 +8,9 @@ package herencia_starcraft;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -15,61 +18,164 @@ import java.io.InputStreamReader;
  */
 public class Herencia_Starcraft {
 
-    /**
-     * @param args the command line arguments
-     */
+    static ArrayList<Escuadron> escuadra;
+
     public static void main(String[] args) {
-
-    }
-
-    public static String pedirCadena(String mensaje) {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String texto = "";
-        boolean error = true;
+        escuadra = new ArrayList<>();
+        String[] array = null;
         do {
-            System.out.println(mensaje);
+
             try {
-                texto = br.readLine();
-                if (texto.equals("")) {
-                    System.out.println("No puedes dejar en blanco el dato");
+                String linea = br.readLine();
+                array = linea.split(" ");
+
+                if (array[0].equalsIgnoreCase("a")) {
+                    altaEscuadron(array);
+                } else if (array[0].equalsIgnoreCase("r")) {
+                    registrarBatalla(array);
+                } else if (array[0].equalsIgnoreCase("m")) {
+                    mejorarEscuadron(array);
+                } else if (array[0].equalsIgnoreCase("c")) {
+                    mostrarClasificacion(array);
+                } else if (array[0].equalsIgnoreCase("s")) {
+                    // salir
                 } else {
-                    error = false;
+                    System.out.println("ERROR 003: Letra incorrecta");
                 }
             } catch (IOException ex) {
-                System.out.println("Error de entrada y salida");
+                Logger.getLogger(Herencia_Starcraft.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-        } while (error);
-        return texto;
+        } while (!array[0].equals("s"));
     }
 
-    public static int pedirEnteroMayorCero(String mensaje) {
-        int numero;
-        do {
-            numero = pedirEntero(mensaje);
-            if (numero <= 0) {
-                System.out.println("Debes introducir un número mayor a 0");
+    private static void altaEscuadron(String[] array) {
+
+        if (!array[1].equalsIgnoreCase("zerg") && !array[1].equalsIgnoreCase("protoss") && !array[1].equalsIgnoreCase("terran")) {
+            System.out.println("ERROR 002: Especie incorreta");
+
+        } else {
+
+            if (array[1].equalsIgnoreCase("terran")) {
+                if (array.length != 7) {
+                    System.out.println("ERROR 001: Nº de argumentos inválido");
+
+                } else {
+                    String nombre = array[2];
+                    int ataque = Integer.parseInt(array[3]);
+                    int defensa = Integer.parseInt(array[4]);
+                    int edificio = Integer.parseInt(array[5]);
+                    int tecnologia = Integer.parseInt(array[6]);
+
+                    if (ataque < 1 || defensa < 1 || edificio < 1 || tecnologia < 1) {
+                        System.out.println(" ERROR 003: Dato incorrecto ");
+                    } else if (existeNombre(nombre)) {
+                        System.out.println(" ERROR 007: Ya existe un escuadrón con ese nombre");
+
+                    } else {
+                        Terran t = new Terran(edificio, tecnologia, nombre, 0, ataque, defensa);
+                        escuadra.add(t);
+                        System.out.println("Terran dado de alta");
+                    }
+                }
+
+            } else if (array[1].equalsIgnoreCase("zerg")) {
+
+                if (array.length != 7) {
+                    System.out.println("ERROR 001: Nº de argumentos inválido");
+
+                } else {
+                    String nombre = array[2];
+                    int ataque = Integer.parseInt(array[3]);
+                    int defensa = Integer.parseInt(array[4]);
+                    int esbirros = Integer.parseInt(array[5]);
+                    int overlords = Integer.parseInt(array[6]);
+
+                    if (ataque < 1 || defensa < 1 || esbirros < 1 || overlords < 1) {
+                        System.out.println(" ERROR 003: Dato incorrecto ");
+                    }
+
+                    if (existeNombre(nombre)) {
+                        System.out.println(" ERROR 007: Ya existe un escuadrón con ese nombre");
+
+                    } else {
+                        Zerg z = new Zerg(esbirros, overlords, nombre, 0, ataque, defensa);
+                        escuadra.add(z);
+                        System.out.println("Zerg dado de alta");
+                    }
+                }
+
+            } else if (array[1].equalsIgnoreCase("protoss")) {
+                if (array.length != 7) {
+                    System.out.println("ERROR 001: Nº de argumentos inválido");
+
+                } else {
+
+                    String nombre = array[2];
+                    int ataque = Integer.parseInt(array[3]);
+                    int defensa = Integer.parseInt(array[4]);
+                    int pilones = Integer.parseInt(array[5]);
+
+                    if (ataque < 1 || defensa < 1 || pilones < 1) {
+                        System.out.println(" ERROR 003: Dato incorrecto ");
+                    }
+
+                    if (existeNombre(nombre)) {
+                        System.out.println(" ERROR 007: Ya existe un escuadrón con ese nombre");
+
+                    } else {
+
+                        Protoss p = new Protoss(pilones, nombre, 0, ataque, defensa);
+                        escuadra.add(p);
+                        System.out.println("Protoss dado de alta");
+                    }
+
+                }
+
             }
-        } while (numero <= 0);
-        return numero;
+
+        }
+
     }
 
-    public static int pedirEntero(String mensaje) {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int numero = 0;
-        boolean error = true;
-        do {
-            try {
-                System.out.println(mensaje);
-                numero = Integer.parseInt(br.readLine());
-                error = false;
-            } catch (IOException ex) {
-                System.out.println("Error de entrada y salida");
-            } catch (NumberFormatException ex) {
-                System.out.println("Debes escribir un número.");
+    private static void registrarBatalla(String[] array) {
+
+        String nombreEscuadron1 = array[1];
+        String nombreEscuadron2 = array[2];
+
+        if (existeNombre(nombreEscuadron1) && existeNombre(nombreEscuadron2)) {
+
+            for (int asaltos = 5; asaltos != 0; asaltos--) {
+                
+                int aleatorio = (int) (Math.random() * 9 + 0);
+                
+                
+                
+                
+
             }
-        } while (error);
-        return numero;
+
+        }
+
+    }
+
+    private static void mejorarEscuadron(String[] array) {
+        System.out.println("hola xavi");
+    }
+
+    private static void mostrarClasificacion(String[] array) {
+        System.out.println("hola xavi");
+    }
+
+    public static boolean existeNombre(String nombre) {
+        // recorremos el ArrayList buscando si existe un disco con el mismo título
+        for (Escuadron e : escuadra) {
+            if (e.getNombre().equalsIgnoreCase(nombre)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }
