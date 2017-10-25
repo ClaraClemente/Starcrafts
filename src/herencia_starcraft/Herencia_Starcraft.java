@@ -107,7 +107,7 @@ public class Herencia_Starcraft {
                 }
 
             } else if (array[1].equalsIgnoreCase("protoss")) {
-                if (array.length != 7) {
+                if (array.length != 6) {
                     System.out.println("ERROR 001: Nº de argumentos inválido");
 
                 } else {
@@ -143,23 +143,52 @@ public class Herencia_Starcraft {
 
         String nombreEscuadron1 = array[1];
         String nombreEscuadron2 = array[2];
+
+        int count1 = 0;
+        int count2 = 0;
+
         Escuadron e1 = cogerEscuadron(nombreEscuadron1);
-        
+        Escuadron e2 = cogerEscuadron(nombreEscuadron2);
+
         if (e1 != null && e2 != null) {
 
-            for (int asaltos = 5; asaltos != 0; asaltos--) {
+            for (int asaltos = 0; asaltos != 5; asaltos++) {
 
-                int aleatorio = (int) (Math.random() * 9 + 0);
-                
-                //1r torn
-               
-                
-                
-                
-                //2n torn
+                int aleatorio1 = (int) (Math.random() * 9 + 0);
+                int aleatorio2 = (int) (Math.random() * 9 + 0);
+
+                double b1 = aleatorio1 + e1.calcularAtaque() - e2.calcularDefensa();
+                double b2 = aleatorio2 + e2.calcularAtaque() - e1.calcularDefensa();
+                String ganador = " ";
+
+                if (b1 > b2) {
+
+                    count1++;
+                    ganador = nombreEscuadron1;
+                } else if (b1 < b2) {
+
+                    count2++;
+                    ganador = nombreEscuadron2;
+
+                }
+
+                System.out.println("Asalto nº " + asaltos);
+                System.out.println("Ataca " + nombreEscuadron1 + "- Nº Aleatorio: " + aleatorio1 + "- Valor de su ataque:" + b1);
+                System.out.println("Ataca " + nombreEscuadron2 + "- Nº Aleatorio: " + aleatorio2 + "- Valor de su ataque:" + b2);
+                System.out.println("Ganador del asalto: " + ganador);
 
             }
+            System.out.println("Fin batalla...");
 
+            if (count1 >= 3) {
+
+                System.out.println("OK: La batalla la ha ganado el escuadron" + nombreEscuadron1 + " con " + count1 + " asaltos.");
+            } else if (count2 >= 3) {
+                System.out.println("OK: La batalla la ha ganado el escuadron" + nombreEscuadron2 + " con " + count2 + " asaltos.");
+
+            }else{
+                System.out.println("OK: La batalla ha acabado en empate");
+            }
         }
 
     }
@@ -170,23 +199,23 @@ public class Herencia_Starcraft {
         String PropiedadAMejorar = array[2];
         String NuevoDato = array[3];
 
-        if (array.length != 4) {
-            System.out.println("ERROR 001: Nº de argumentos inválido");
-
-        } else {
-            if (PropiedadAMejorar || NuevoDato < 1) {
-                System.out.println(" ERROR 003: Dato incorrecto ");
-            }else{
-                !existeNombre(nombreEscuadron) 
-            }
-
-            if (existeNombre(nombreEscuadron)) {
-                System.out.println(" ERROR 007: Ya existe un escuadrón con ese nombre");
-
-            } else {
-
-            }
-        }
+//        if (array.length != 4) {
+//            System.out.println("ERROR 001: Nº de argumentos inválido");
+//
+//        } else {
+//            if (PropiedadAMejorar || NuevoDato < 1) {
+//                System.out.println(" ERROR 003: Dato incorrecto ");
+//            } else {
+//                !existeNombre(nombreEscuadron) 
+//            }
+//
+//            if (existeNombre(nombreEscuadron)) {
+//                System.out.println(" ERROR 007: Ya existe un escuadrón con ese nombre");
+//
+//            } else {
+//
+//            }
+//        }
 
     }
 
@@ -203,8 +232,8 @@ public class Herencia_Starcraft {
         }
         return false;
     }
-    
-     public static Escuadron cogerEscuadron(String nombre) {
+
+    public static Escuadron cogerEscuadron(String nombre) {
         // recorremos el ArrayList buscando si existe un disco con el mismo título
         for (Escuadron e : escuadra) {
             if (e.getNombre().equalsIgnoreCase(nombre)) {

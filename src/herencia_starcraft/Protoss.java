@@ -21,24 +21,15 @@ public class Protoss extends Escuadron {
         this.pilones = pilones;
     }
 
-    public int aumentaAtaquePilon() {
-
-        return (int) (getNivelataque() * 1.50);
-
-    }
-   public int aumentaDefensaPilon() {
-
-        return (int) (getNiveldefensa() * 1.50);
-
-    }
-
     @Override
     public double calcularAtaque() {
-        
+        return (pilones * 1.50) + getNivelataque();
+
     }
 
     @Override
     public double calcularDefensa() {
+        return (pilones * 1.50) + getNiveldefensa();
 
     }
 }

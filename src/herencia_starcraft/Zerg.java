@@ -15,7 +15,6 @@ public class Zerg extends Escuadron {
     private int esbirros;
     private int overlords;
 
-    
     public Zerg(int esbirros, int overlords) {
         this.esbirros = esbirros;
         this.overlords = overlords;
@@ -27,9 +26,6 @@ public class Zerg extends Escuadron {
         this.overlords = overlords;
     }
 
-    
-    
-    
     public int getOverlords() {
         return overlords;
     }
@@ -45,42 +41,19 @@ public class Zerg extends Escuadron {
     public void setEsbirros(int esbirros) {
         this.esbirros = esbirros;
     }
-    
-    /**
-     *
-     * @return 
-     */
-    public int aumentaAtaqueEsbirro(){
-        
-      return (int) (getNivelataque() * 1.15);
-        
-    }
-    
-    public int aumentaDefensaEsbirro(){
-        
-      return (int) (getNiveldefensa() * 1.30);
-        
-    }
-    
-    public int aumentaAtaqueOver(){
-        
-      return (int) (getNivelataque() * 1.40);
-        
-    }
 
     @Override
     public double calcularAtaque() {
 
-        double nEsbirros = getEsbirros();
-        double nivelAtaque = getNivelataque();
-        return ((nEsbirros)*1.15) + nivelAtaque;
-        
+        double u = (esbirros * 1.15) + getNivelataque();
+        return u + (overlords * 1.40);
     }
 
     @Override
     public double calcularDefensa() {
-        
+
+        return (esbirros * 1.30) + getNiveldefensa();
+
     }
-    
 
 }
