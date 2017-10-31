@@ -59,12 +59,12 @@ public class Herencia_Starcraft {
 
         } else {
 
-            if (!array[1].equalsIgnoreCase("zerg") && !array[1].equalsIgnoreCase("protoss") && !array[1].equalsIgnoreCase("terran")) {
-                System.out.println("< ERROR 002: Especie incorreta >");
+            if ((isNumeric(array[3]) && isNumeric(array[4]) && isNumeric(array[5]) && isNumeric(array[3]))) {
 
-            } else if (array[1].equalsIgnoreCase("terran")) {
+                if (!array[1].equalsIgnoreCase("zerg") && !array[1].equalsIgnoreCase("protoss") && !array[1].equalsIgnoreCase("terran")) {
+                    System.out.println("< ERROR 002: Especie incorreta >");
 
-                if ((isNumeric(array[3]) || isNumeric(array[4]) || isNumeric(array[5]) || isNumeric(array[3]))) {
+                } else if (array[1].equalsIgnoreCase("terran")) {
 
                     String nombre = array[2];
                     int ataque = Integer.parseInt(array[3]);
@@ -87,62 +87,61 @@ public class Herencia_Starcraft {
                         System.out.println("< OK: Escuadrón registrado >");
                     }
 
-                } else {
-                    System.out.println("< ERROR 003: Dato incorrecto >");
-                }
+                } else if (array[1].equalsIgnoreCase("zerg")) {
 
-            } else if (array[1].equalsIgnoreCase("zerg")) {
-
-                if (array.length != 7) {
-                    System.out.println("< ERROR 001: Nº de argumentos inválido >");
-
-                } else {
-                    String nombre = array[2];
-                    int ataque = Integer.parseInt(array[3]);
-                    int defensa = Integer.parseInt(array[4]);
-                    int esbirros = Integer.parseInt(array[5]);
-                    int overlords = Integer.parseInt(array[6]);
-
-                    if (ataque < 1 || defensa < 1 || esbirros < 1 || overlords < 1) {
-                        System.out.println("< ERROR 003: Dato incorrecto >");
-                    }
-
-                    if (existeNombre(nombre)) {
-                        System.out.println("< ERROR 007: Ya existe un escuadrón con ese nombre >");
+                    if (array.length != 7) {
+                        System.out.println("< ERROR 001: Nº de argumentos inválido >");
 
                     } else {
-                        Zerg z = new Zerg(esbirros, overlords, nombre, 0, ataque, defensa);
-                        escuadra.add(z);
-                        System.out.println("< OK: Escuadrón registrado >");
+                        String nombre = array[2];
+                        int ataque = Integer.parseInt(array[3]);
+                        int defensa = Integer.parseInt(array[4]);
+                        int esbirros = Integer.parseInt(array[5]);
+                        int overlords = Integer.parseInt(array[6]);
+
+                        if (ataque < 1 || defensa < 1 || esbirros < 1 || overlords < 1) {
+                            System.out.println("< ERROR 003: Dato incorrecto >");
+                        }
+
+                        if (existeNombre(nombre)) {
+                            System.out.println("< ERROR 007: Ya existe un escuadrón con ese nombre >");
+
+                        } else {
+                            Zerg z = new Zerg(esbirros, overlords, nombre, 0, ataque, defensa);
+                            escuadra.add(z);
+                            System.out.println("< OK: Escuadrón registrado >");
+                        }
                     }
-                }
 
-            } else if (array[1].equalsIgnoreCase("protoss")) {
-                if (array.length != 6) {
-                    System.out.println("< ERROR 001: Nº de argumentos inválido >");
-
-                } else {
-
-                    String nombre = array[2];
-                    int ataque = Integer.parseInt(array[3]);
-                    int defensa = Integer.parseInt(array[4]);
-                    int pilones = Integer.parseInt(array[5]);
-
-                    if (ataque < 1 || defensa < 1 || pilones < 1) {
-                        System.out.println("< ERROR 003: Dato incorrecto >");
-                    }
-
-                    if (existeNombre(nombre)) {
-                        System.out.println("< ERROR 007: Ya existe un escuadrón con ese nombre >");
+                } else if (array[1].equalsIgnoreCase("protoss")) {
+                    if (array.length != 6) {
+                        System.out.println("< ERROR 001: Nº de argumentos inválido >");
 
                     } else {
 
-                        Protoss p = new Protoss(pilones, nombre, 0, ataque, defensa);
-                        escuadra.add(p);
-                        System.out.println("< OK: Escuadrón registrado >");
-                    }
+                        String nombre = array[2];
+                        int ataque = Integer.parseInt(array[3]);
+                        int defensa = Integer.parseInt(array[4]);
+                        int pilones = Integer.parseInt(array[5]);
 
+                        if (ataque < 1 || defensa < 1 || pilones < 1) {
+                            System.out.println("< ERROR 003: Dato incorrecto >");
+                        }
+
+                        if (existeNombre(nombre)) {
+                            System.out.println("< ERROR 007: Ya existe un escuadrón con ese nombre >");
+
+                        } else {
+
+                            Protoss p = new Protoss(pilones, nombre, 0, ataque, defensa);
+                            escuadra.add(p);
+                            System.out.println("< OK: Escuadrón registrado >");
+                        }
+
+                    }
                 }
+            } else {
+                System.out.println("< ERROR 003: Dato incorrecto >");
 
             }
 
