@@ -1,6 +1,6 @@
 package herencia_starcraft;
 
-public abstract class Escuadron {
+public abstract class Escuadron implements Comparable<Escuadron> {
 
     private String nombre;
     private int nvictorias;
@@ -52,5 +52,19 @@ public abstract class Escuadron {
     public abstract double calcularAtaque();
 
     public abstract double calcularDefensa();
+
+    @Override
+    public int compareTo(Escuadron o) {
+
+        if (this.nvictorias > o.getNvictorias()) {
+            return -1;
+
+        } else if (this.nvictorias > o.getNvictorias()) {
+            return 1;
+
+        } else {
+            return 0;
+        }
+    }
 
 }

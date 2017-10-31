@@ -9,6 +9,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -52,16 +54,16 @@ public class Herencia_Starcraft {
 
     private static void altaEscuadron(String[] array) {
 
-        if (!array[1].equalsIgnoreCase("zerg") && !array[1].equalsIgnoreCase("protoss") && !array[1].equalsIgnoreCase("terran")) {
-            System.out.println("ERROR 002: Especie incorreta");
+        if (array.length != 7) {
+            System.out.println("ERROR 001: Nº de argumentos inválido");
 
         } else {
+            if (!array[1].equalsIgnoreCase("zerg") && !array[1].equalsIgnoreCase("protoss") && !array[1].equalsIgnoreCase("terran")) {
+                System.out.println("ERROR 002: Especie incorreta");
+                
+            }else if (array[1].equalsIgnoreCase("terran")) {
 
-            if (array[1].equalsIgnoreCase("terran")) {
-                if (array.length != 7) {
-                    System.out.println("ERROR 001: Nº de argumentos inválido");
-
-                } else {
+                
                     String nombre = array[2];
                     int ataque = Integer.parseInt(array[3]);
                     int defensa = Integer.parseInt(array[4]);
@@ -78,7 +80,7 @@ public class Herencia_Starcraft {
                         escuadra.add(t);
                         System.out.println("Terran dado de alta");
                     }
-                }
+               
 
             } else if (array[1].equalsIgnoreCase("zerg")) {
 
@@ -165,6 +167,7 @@ public class Herencia_Starcraft {
 
                     count1++;
                     ganador = nombreEscuadron1;
+
                 } else if (b1 < b2) {
 
                     count2++;
@@ -186,7 +189,7 @@ public class Herencia_Starcraft {
             } else if (count2 >= 3) {
                 System.out.println("OK: La batalla la ha ganado el escuadron" + nombreEscuadron2 + " con " + count2 + " asaltos.");
 
-            }else{
+            } else {
                 System.out.println("OK: La batalla ha acabado en empate");
             }
         }
@@ -197,30 +200,81 @@ public class Herencia_Starcraft {
 
         String nombreEscuadron = array[1];
         String PropiedadAMejorar = array[2];
-        String NuevoDato = array[3];
+        String Nuevo = array[3];
+        int NuevoDato = 0;
+        NuevoDato = Integer.parseInt(Nuevo);
 
-//        if (array.length != 4) {
-//            System.out.println("ERROR 001: Nº de argumentos inválido");
-//
-//        } else {
-//            if (PropiedadAMejorar || NuevoDato < 1) {
-//                System.out.println(" ERROR 003: Dato incorrecto ");
-//            } else {
-//                !existeNombre(nombreEscuadron) 
-//            }
-//
-//            if (existeNombre(nombreEscuadron)) {
-//                System.out.println(" ERROR 007: Ya existe un escuadrón con ese nombre");
-//
-//            } else {
-//
-//            }
-//        }
+        if (array.length != 4) {
+            System.out.println("ERROR 001: Nº de argumentos inválido");
+
+        } else if (/*PropiedadAMejorar!= ||*/NuevoDato < 1) {
+            System.out.println(" ERROR 003: Dato incorrecto ");
+        } else if (existeNombre(nombreEscuadron)) {
+
+            Escuadron e = cogerEscuadron(nombreEscuadron);
+
+            if (e instanceof Terran) {
+                Terran t = (Terran) e;
+
+                if (PropiedadAMejorar.equalsIgnoreCase("edificio")) {
+
+                    t.setNedificio(NuevoDato);
+
+                } else if (PropiedadAMejorar.equalsIgnoreCase("arma")) {
+
+                    t.setArma(NuevoDato);
+
+                }else{
+                    System.out.println("ERROR 006: Propiedad incorrecta");
+                }
+            }
+
+            
+            if (e instanceof Zerg) {
+                Zerg z = (Zerg) e;
+
+                if (PropiedadAMejorar.equalsIgnoreCase("esbirros")) {
+
+                    z.setEsbirros(NuevoDato);
+
+                } else if (PropiedadAMejorar.equalsIgnoreCase("overlords")) {
+
+                    z.setOverlords(NuevoDato);
+
+                }else{
+                    System.out.println("ERROR 006: Propiedad incorrecta");
+                }
+            }
+            
+
+            if (e instanceof Protoss) {
+                Protoss p = (Protoss) e;
+
+                if (PropiedadAMejorar.equalsIgnoreCase("pilones")) {
+                    
+                    p.setPilones(NuevoDato);
+                    
+                }else{
+                    System.out.println("ERROR 006: Propiedad incorrecta");
+                }
+
+            }
+
+        } else {
+            System.out.println("ERROR 005: No existe especie con ese nombre");
+        }
 
     }
 
     private static void mostrarClasificacion(String[] array) {
-        System.out.println("hola xavi");
+
+        Collections.sort(escuadra);
+
+        for (int i = 0; i < 3; i++) {
+
+            System.out.println(escuadra.get(i));
+        }
+
     }
 
     public static boolean existeNombre(String nombre) {
