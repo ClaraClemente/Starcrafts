@@ -41,7 +41,7 @@ public class Herencia_Starcraft {
                 } else if (array[0].equalsIgnoreCase("c")) {
                     mostrarClasificacion(array);
                 } else if (array[0].equalsIgnoreCase("s")) {
-                    // salir
+                        System.exit(0);
                 } else {
                     System.out.println("ERROR 003: Letra incorrecta");
                 }
@@ -60,27 +60,25 @@ public class Herencia_Starcraft {
         } else {
             if (!array[1].equalsIgnoreCase("zerg") && !array[1].equalsIgnoreCase("protoss") && !array[1].equalsIgnoreCase("terran")) {
                 System.out.println("ERROR 002: Especie incorreta");
-                
-            }else if (array[1].equalsIgnoreCase("terran")) {
 
-                
-                    String nombre = array[2];
-                    int ataque = Integer.parseInt(array[3]);
-                    int defensa = Integer.parseInt(array[4]);
-                    int edificio = Integer.parseInt(array[5]);
-                    int tecnologia = Integer.parseInt(array[6]);
+            } else if (array[1].equalsIgnoreCase("terran")) {
 
-                    if (ataque < 1 || defensa < 1 || edificio < 1 || tecnologia < 1) {
-                        System.out.println(" ERROR 003: Dato incorrecto ");
-                    } else if (existeNombre(nombre)) {
-                        System.out.println(" ERROR 007: Ya existe un escuadrón con ese nombre");
+                String nombre = array[2];
+                int ataque = Integer.parseInt(array[3]);
+                int defensa = Integer.parseInt(array[4]);
+                int edificio = Integer.parseInt(array[5]);
+                int tecnologia = Integer.parseInt(array[6]);
 
-                    } else {
-                        Terran t = new Terran(edificio, tecnologia, nombre, 0, ataque, defensa);
-                        escuadra.add(t);
-                        System.out.println("Terran dado de alta");
-                    }
-               
+                if (ataque < 1 || defensa < 1 || edificio < 1 || tecnologia < 1) {
+                    System.out.println(" ERROR 003: Dato incorrecto ");
+                } else if (existeNombre(nombre)) {
+                    System.out.println(" ERROR 007: Ya existe un escuadrón con ese nombre");
+
+                } else {
+                    Terran t = new Terran(edificio, tecnologia, nombre, 0, ataque, defensa);
+                    escuadra.add(t);
+                    System.out.println("OK: Escuadrón registrado");
+                }
 
             } else if (array[1].equalsIgnoreCase("zerg")) {
 
@@ -104,7 +102,7 @@ public class Herencia_Starcraft {
                     } else {
                         Zerg z = new Zerg(esbirros, overlords, nombre, 0, ataque, defensa);
                         escuadra.add(z);
-                        System.out.println("Zerg dado de alta");
+                        System.out.println("OK: Escuadrón registrado");
                     }
                 }
 
@@ -130,7 +128,7 @@ public class Herencia_Starcraft {
 
                         Protoss p = new Protoss(pilones, nombre, 0, ataque, defensa);
                         escuadra.add(p);
-                        System.out.println("Protoss dado de alta");
+                        System.out.println("OK: Escuadrón registrado");
                     }
 
                 }
@@ -185,9 +183,15 @@ public class Herencia_Starcraft {
 
             if (count1 >= 3) {
 
-                System.out.println("OK: La batalla la ha ganado el escuadron" + nombreEscuadron1 + " con " + count1 + " asaltos.");
+                System.out.println("OK: La batalla la ha ganado el escuadron " + nombreEscuadron1 + " con " + count1 + " asaltos.");
+
+                e1.setNvictorias(e1.getNvictorias() + 1);
+
             } else if (count2 >= 3) {
-                System.out.println("OK: La batalla la ha ganado el escuadron" + nombreEscuadron2 + " con " + count2 + " asaltos.");
+
+                System.out.println("OK: La batalla la ha ganado el escuadron " + nombreEscuadron2 + " con " + count2 + " asaltos.");
+                
+                e2.setNvictorias(e2.getNvictorias() + 1);
 
             } else {
                 System.out.println("OK: La batalla ha acabado en empate");
@@ -207,9 +211,13 @@ public class Herencia_Starcraft {
         if (array.length != 4) {
             System.out.println("ERROR 001: Nº de argumentos inválido");
 
-        } else if (/*PropiedadAMejorar!= ||*/NuevoDato < 1) {
+        }
+        if (!existeNombre(nombreEscuadron)) {
+            System.out.println(" ERROR 005: No existe especie con ese nombre ");
+
+        } else if (NuevoDato < 1) {
             System.out.println(" ERROR 003: Dato incorrecto ");
-        } else if (existeNombre(nombreEscuadron)) {
+        } else {
 
             Escuadron e = cogerEscuadron(nombreEscuadron);
 
@@ -224,12 +232,11 @@ public class Herencia_Starcraft {
 
                     t.setArma(NuevoDato);
 
-                }else{
+                } else {
                     System.out.println("ERROR 006: Propiedad incorrecta");
                 }
             }
 
-            
             if (e instanceof Zerg) {
                 Zerg z = (Zerg) e;
 
@@ -241,27 +248,24 @@ public class Herencia_Starcraft {
 
                     z.setOverlords(NuevoDato);
 
-                }else{
+                } else {
                     System.out.println("ERROR 006: Propiedad incorrecta");
                 }
             }
-            
 
             if (e instanceof Protoss) {
                 Protoss p = (Protoss) e;
 
                 if (PropiedadAMejorar.equalsIgnoreCase("pilones")) {
-                    
+
                     p.setPilones(NuevoDato);
-                    
-                }else{
+
+                } else {
                     System.out.println("ERROR 006: Propiedad incorrecta");
                 }
 
             }
 
-        } else {
-            System.out.println("ERROR 005: No existe especie con ese nombre");
         }
 
     }

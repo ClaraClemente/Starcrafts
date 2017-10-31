@@ -59,12 +59,17 @@ public abstract class Escuadron implements Comparable<Escuadron> {
         if (this.nvictorias > o.getNvictorias()) {
             return -1;
 
-        } else if (this.nvictorias > o.getNvictorias()) {
+        } else if (this.nvictorias < o.getNvictorias()) {
             return 1;
 
         } else {
             return 0;
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Escuadron{" + "nombre=" + nombre + ", nvictorias=" + nvictorias + ", nivelataque=" + nivelataque + ", niveldefensa=" + niveldefensa + '}';
     }
 
 }
